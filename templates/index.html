@@ -3,16 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LAB ACCESS — Privacy-First Campus Security</title>
+  <title>UWATch — Privacy-First Campus Security</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <!-- Google Fonts is a graceful enhancement only - the font stack in
+       style.css falls back to system sans-serif if this can't load
+       (e.g. no network at demo time). -->
 </head>
 <body>
 
   <header class="topbar">
     <div class="brand">
-      <div class="brand-mark">LA</div>
+      <div class="brand-mark">UW</div>
       <div class="brand-text">
-        <h1>LAB ACCESS</h1>
+        <h1>UWATch</h1>
         <p>Privacy-First Campus Security</p>
       </div>
     </div>
@@ -55,10 +61,64 @@
           <span id="cameraStatusText">CAMERA INACTIVE</span>
         </div>
         <p class="camera-desc" id="cameraDesc">
-          Video monitoring remains disabled until an authenticated entry event occurs.
+          Video monitoring stays off while the lab is empty.
         </p>
       </div>
 
+    </section>
+
+    <!-- ============== ENVIRONMENTAL SENSORS ============== -->
+    <section class="sensor-section">
+      <div class="section-header">
+        <h2>ENVIRONMENTAL MONITORING</h2>
+        <div class="legend">
+          <span class="legend-item"><span class="legend-dot legend-dot-good"></span>Safe</span>
+          <span class="legend-item"><span class="legend-dot legend-dot-bad"></span>Not Safe</span>
+        </div>
+      </div>
+      <div class="cards-row">
+
+        <!-- TEMPERATURE -->
+        <div class="card sensor-card" id="tempCard">
+          <div class="card-label">TEMPERATURE</div>
+          <div class="sensor-top">
+            <div class="sensor-value"><span id="tempValue">--</span><span class="sensor-unit">°C</span></div>
+            <div class="sensor-pill" id="tempPill">
+              <span class="dot" id="tempDot"></span>
+              <span id="tempStatusText">SAFE</span>
+            </div>
+          </div>
+          <div class="sensor-range-track">
+            <div class="sensor-zone-safe" style="width: 36.7%"></div>
+            <div class="sensor-zone-unsafe" style="width: 63.3%"></div>
+            <div class="sensor-marker" id="tempMarker" style="left: 0%"></div>
+          </div>
+          <p class="sensor-caption">
+            Safe up to 26°C. Higher readings may signal overheating equipment or a fire risk.
+          </p>
+        </div>
+
+        <!-- AIR QUALITY -->
+        <div class="card sensor-card" id="airCard">
+          <div class="card-label">AIR QUALITY</div>
+          <div class="sensor-top">
+            <div class="sensor-value"><span id="airValue">--</span><span class="sensor-unit">ppm</span></div>
+            <div class="sensor-pill" id="airPill">
+              <span class="dot" id="airDot"></span>
+              <span id="airStatusText">SAFE</span>
+            </div>
+          </div>
+          <div class="sensor-range-track">
+            <div class="sensor-zone-safe" style="width: 33.3%"></div>
+            <div class="sensor-zone-unsafe" style="width: 66.7%"></div>
+            <div class="sensor-marker" id="airMarker" style="left: 0%"></div>
+          </div>
+          <p class="sensor-caption">
+            Safe up to 50 ppm. Elevated readings may indicate soldering fumes or poor ventilation.
+          </p>
+        </div>
+
+      </div>
     </section>
 
     <!-- ============== DEMO MODE ============== -->
@@ -103,7 +163,7 @@
         <div class="privacy-step">
           <div class="step-number">3</div>
           <div class="step-title">EVENT-BASED VERIFICATION</div>
-          <p>Camera verification occurs only during an authenticated access event.</p>
+          <p>Camera monitoring switches on at check-in and off the moment the lab is empty again - never running continuously.</p>
         </div>
         <div class="privacy-step">
           <div class="step-number">4</div>

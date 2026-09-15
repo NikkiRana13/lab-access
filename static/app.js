@@ -22,11 +22,38 @@ const el = {
   cameraStatusText: document.getElementById("cameraStatusText"),
   cameraDesc: document.getElementById("cameraDesc"),
 
+  tempValue: document.getElementById("tempValue"),
+  tempDot: document.getElementById("tempDot"),
+  tempStatusText: document.getElementById("tempStatusText"),
+  tempMarker: document.getElementById("tempMarker"),
+
+  airValue: document.getElementById("airValue"),
+  airDot: document.getElementById("airDot"),
+  airStatusText: document.getElementById("airStatusText"),
+  airMarker: document.getElementById("airMarker"),
+
   activityList: document.getElementById("activityList"),
 
   demoCheckin: document.getElementById("demoCheckin"),
   demoCheckout: document.getElementById("demoCheckout"),
 };
+
+// Must mirror the safe-range constants in app.py (TEMPERATURE_SAFE_MAX_C,
+// AIR_QUALITY_SAFE_MAX_PPM) and the gauge domains used for the zone widths
+// hardcoded in index.html.
+const TEMP_DOMAIN_MIN = 15;
+const TEMP_DOMAIN_MAX = 45;
+const AIR_DOMAIN_MIN = 0;
+const AIR_DOMAIN_MAX = 150;
+
+function updateSensorGauge({ dotEl, textEl, markerEl, value, domainMin, domainMax, safe }) {
+  dotEl.classList.remove("dot-good", "dot-bad");
+  dotEl.classList.add(safe ? "dot-good" : "dot-bad");
+  textEl.textContent = safe ? "SAFE" : "NOT SAFE";
+
+  const fraction = Math.min(1, Math.max(0, (value - domainMin) / (domainMax - domainMin)));
+  markerEl.style.left = `${fraction * 100}%`;
+}
 
 function updateStatus(data) {
   // Arduino connection pill
@@ -51,19 +78,43 @@ function updateStatus(data) {
   el.progressFill.style.width = `${Math.min(100, pct)}%`;
   el.progressFill.classList.toggle("full", pct >= 90);
 
-  // Privacy / camera card
+  // Privacy / camera card - camera tracks occupancy, not a timed blip:
+  // on while the lab has anyone checked in, off the moment it's empty.
+  el.cameraEyebrow.textContent = "PRIVACY MODE";
   if (data.cameraActive) {
     el.cameraCard.classList.add("active");
-    el.cameraEyebrow.textContent = "ENTRY VERIFICATION";
     el.cameraStatusText.textContent = "CAMERA ACTIVE";
-    el.cameraDesc.textContent = "Verifying authenticated entry at the lab door.";
+    el.cameraDesc.textContent =
+      "The lab is currently occupied, so video monitoring is active.";
   } else {
     el.cameraCard.classList.remove("active");
-    el.cameraEyebrow.textContent = "PRIVACY MODE";
     el.cameraStatusText.textContent = "CAMERA INACTIVE";
     el.cameraDesc.textContent =
-      "Video monitoring remains disabled until an authenticated entry event occurs.";
+      "Video monitoring stays off while the lab is empty.";
   }
+
+  // Environmental sensors (simulated)
+  el.tempValue.textContent = data.temperatureC.toFixed(1);
+  updateSensorGauge({
+    dotEl: el.tempDot,
+    textEl: el.tempStatusText,
+    markerEl: el.tempMarker,
+    value: data.temperatureC,
+    domainMin: TEMP_DOMAIN_MIN,
+    domainMax: TEMP_DOMAIN_MAX,
+    safe: data.temperatureSafe,
+  });
+
+  el.airValue.textContent = Math.round(data.airQualityPpm);
+  updateSensorGauge({
+    dotEl: el.airDot,
+    textEl: el.airStatusText,
+    markerEl: el.airMarker,
+    value: data.airQualityPpm,
+    domainMin: AIR_DOMAIN_MIN,
+    domainMax: AIR_DOMAIN_MAX,
+    safe: data.airQualitySafe,
+  });
 }
 
 function formatDurationShort(totalSeconds) {

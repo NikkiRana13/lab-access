@@ -1,40 +1,39 @@
 /* ==========================================================================
    LAB ACCESS — Privacy-First Campus Security
-   Dark "campus security ops" dashboard theme.
+   Verkada-inspired mini design system: clean, quiet, enterprise-y,
+   with color reserved for meaning (green = success, blue = accent/
+   informational, red = alert). White space and strong typography over
+   decoration.
    ========================================================================== */
 
 :root {
-  --bg: #0a0e14;
-  --bg-panel: #111826;
-  --bg-panel-2: #0d1420;
-  --border: #1f2937;
-  --text: #e6edf3;
-  --text-dim: #8b98a9;
-  --text-faint: #5c6b7f;
+  --ink: #030e16;
+  --blue: #007faf;
+  --blue-tint: #e6f3f8;
+  --white: #ffffff;
+  --offwhite: #f7f9fb;
+  --gray: #73808c;
+  --border: #e6eaee;
+  --green: #26cc86;
+  --green-tint: #e9fbf3;
+  --red: #de3243;
+  --red-tint: #fdecee;
 
-  --accent: #3ba7ff;
-  --good: #2fd67f;
-  --good-dim: rgba(47, 214, 127, 0.12);
-  --bad: #ff5c5c;
-  --bad-dim: rgba(255, 92, 92, 0.12);
-  --warn: #ffb648;
-  --warn-dim: rgba(255, 182, 72, 0.12);
-
-  --checkin: #2fd67f;
-  --checkout: #3ba7ff;
-
-  --radius: 14px;
-  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --radius: 10px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 2px rgba(3, 14, 22, 0.05);
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #0f1622 0%, var(--bg) 55%);
-  color: var(--text);
-  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  font-family: "TT Norms", "TT Norms Pro", "Poppins", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 400;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ---------------------------------- header ---------------------------------- */
@@ -45,8 +44,7 @@ body {
   justify-content: space-between;
   padding: 20px 32px;
   border-bottom: 1px solid var(--border);
-  background: rgba(10, 14, 20, 0.7);
-  backdrop-filter: blur(6px);
+  background: var(--white);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -55,32 +53,35 @@ body {
 .brand { display: flex; align-items: center; gap: 14px; }
 
 .brand-mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent), #1c63b8);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--blue);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
+  font-family: "TT Norms", "TT Norms Pro", "Poppins", "Inter", sans-serif;
   letter-spacing: 0.5px;
   font-size: 14px;
-  color: #fff;
-  box-shadow: var(--shadow);
+  color: var(--white);
 }
 
 .brand-text h1 {
   margin: 0;
-  font-size: 20px;
-  letter-spacing: 2px;
+  font-family: "TT Norms", "TT Norms Pro", "Poppins", "Inter", sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.5px;
   font-weight: 700;
+  color: var(--ink);
 }
 
 .brand-text p {
   margin: 2px 0 0;
-  font-size: 12px;
-  color: var(--text-dim);
-  letter-spacing: 0.5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray);
+  letter-spacing: 0.2px;
 }
 
 .status-pills { display: flex; gap: 10px; }
@@ -91,23 +92,24 @@ body {
   gap: 8px;
   padding: 8px 14px;
   border-radius: 999px;
-  background: var(--bg-panel);
+  background: var(--offwhite);
   border: 1px solid var(--border);
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  color: var(--text-dim);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: var(--gray);
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--text-faint);
+  background: var(--gray);
+  flex-shrink: 0;
 }
 
-.dot-good { background: var(--good); box-shadow: 0 0 8px var(--good); }
-.dot-bad { background: var(--bad); box-shadow: 0 0 8px var(--bad); }
+.dot-good { background: var(--green); }
+.dot-bad { background: var(--red); }
 
 /* ---------------------------------- layout ---------------------------------- */
 
@@ -123,7 +125,7 @@ body {
 .cards-row {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  gap: 20px;
+  gap: 16px;
 }
 
 @media (max-width: 760px) {
@@ -131,7 +133,7 @@ body {
 }
 
 .card {
-  background: linear-gradient(180deg, var(--bg-panel) 0%, var(--bg-panel-2) 100%);
+  background: var(--offwhite);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 24px;
@@ -140,36 +142,39 @@ body {
 
 .card-label {
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  color: var(--text-dim);
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: var(--gray);
   margin-bottom: 14px;
+  text-transform: uppercase;
 }
 
 /* ---------------------------------- occupancy card ---------------------------------- */
 
 .occupancy-figure {
-  font-size: 56px;
-  font-weight: 800;
+  font-family: "TT Norms", "TT Norms Pro", "Poppins", "Inter", sans-serif;
+  font-size: 36px;
+  font-weight: 600;
   line-height: 1;
+  color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
 
-.occupancy-figure .slash { color: var(--text-faint); margin: 0 6px; }
+.occupancy-figure .slash { color: var(--gray); margin: 0 6px; font-weight: 500; }
 
 .occupancy-percent {
   margin-top: 8px;
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--blue);
 }
 
 .progress-track {
   margin-top: 18px;
-  height: 10px;
+  height: 8px;
   border-radius: 999px;
-  background: #0a0f18;
+  background: var(--white);
   border: 1px solid var(--border);
   overflow: hidden;
 }
@@ -177,11 +182,11 @@ body {
 .progress-fill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--good), var(--accent));
+  background: var(--blue);
   transition: width 0.4s ease, background 0.4s ease;
 }
 
-.progress-fill.full { background: linear-gradient(90deg, var(--warn), var(--bad)); }
+.progress-fill.full { background: var(--red); }
 
 /* ---------------------------------- camera card ---------------------------------- */
 
@@ -189,43 +194,45 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  font-family: "TT Norms", "TT Norms Pro", "Poppins", "Inter", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--ink);
 }
 
 .camera-indicator {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--text-faint);
+  background: var(--gray);
   flex-shrink: 0;
 }
 
 .camera-desc {
   margin: 14px 0 0;
-  font-size: 13px;
-  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray);
   line-height: 1.5;
 }
 
 .camera-card.active {
-  border-color: rgba(255, 92, 92, 0.5);
-  box-shadow: 0 0 0 1px rgba(255, 92, 92, 0.25), var(--shadow);
+  background: var(--blue-tint);
+  border-color: rgba(0, 127, 175, 0.25);
 }
 
 .camera-card.active .camera-indicator {
-  background: var(--bad);
-  box-shadow: 0 0 10px var(--bad);
+  background: var(--blue);
   animation: pulse 1s infinite;
 }
 
-.camera-card.active #cameraStatusText { color: var(--bad); }
-.camera-card.active #cameraEyebrow { color: var(--bad); }
+.camera-card.active #cameraStatusText { color: var(--blue); }
+.camera-card.active #cameraEyebrow { color: var(--blue); }
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+  50% { opacity: 0.4; }
 }
 
 /* ---------------------------------- demo card ---------------------------------- */
@@ -240,34 +247,36 @@ body {
 
 .demo-info p {
   margin: 0;
-  font-size: 13px;
-  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray);
   max-width: 480px;
 }
+
+.demo-info strong { color: var(--ink); font-weight: 600; }
 
 .demo-buttons { display: flex; gap: 10px; }
 
 .btn {
   border: 1px solid var(--border);
-  background: var(--bg-panel-2);
-  color: var(--text);
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  background: var(--white);
+  color: var(--ink);
+  padding: 11px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
   cursor: pointer;
-  transition: transform 0.1s ease, border-color 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
+.btn:hover { background: var(--offwhite); }
 
-.btn-in { border-color: rgba(47, 214, 127, 0.4); color: var(--good); }
-.btn-in:hover { border-color: var(--good); }
+.btn-in { border-color: rgba(38, 204, 134, 0.4); color: var(--green); }
+.btn-in:hover { background: var(--green-tint); border-color: var(--green); }
 
-.btn-out { border-color: rgba(59, 167, 255, 0.4); color: var(--accent); }
-.btn-out:hover { border-color: var(--accent); }
+.btn-out { border-color: rgba(0, 127, 175, 0.35); color: var(--blue); }
+.btn-out:hover { background: var(--blue-tint); border-color: var(--blue); }
 
 /* ---------------------------------- section headers ---------------------------------- */
 
@@ -280,13 +289,114 @@ body {
 
 .section-header h2 {
   margin: 0;
+  font-family: "TT Norms", "TT Norms Pro", "Poppins", "Inter", sans-serif;
   font-size: 15px;
-  letter-spacing: 1.5px;
-  font-weight: 800;
-  color: var(--text);
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: var(--ink);
+  text-transform: uppercase;
 }
 
-.section-sub { font-size: 12px; color: var(--text-faint); }
+.section-sub { font-size: 12px; font-weight: 500; color: var(--gray); }
+
+.legend {
+  display: flex;
+  gap: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-dot-good { background: var(--green); }
+.legend-dot-bad { background: var(--red); }
+
+/* ---------------------------------- sensor cards ---------------------------------- */
+
+.sensor-section { margin-top: -8px; }
+
+.sensor-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sensor-value {
+  font-family: "TT Norms", "TT Norms Pro", "Poppins", "Inter", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.sensor-unit {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray);
+  margin-left: 4px;
+}
+
+.sensor-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--gray);
+  flex-shrink: 0;
+}
+
+.sensor-range-track {
+  position: relative;
+  margin-top: 18px;
+  height: 8px;
+  border-radius: 999px;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.sensor-zone-safe { background: var(--green); opacity: 0.35; }
+.sensor-zone-unsafe { background: var(--red); opacity: 0.35; }
+
+.sensor-marker {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1px var(--border);
+  transform: translate(-50%, -50%);
+  transition: left 0.4s ease;
+}
+
+.sensor-caption {
+  margin: 14px 0 0;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--gray);
+  line-height: 1.5;
+}
 
 /* ---------------------------------- activity feed ---------------------------------- */
 
@@ -295,10 +405,11 @@ body {
 .empty-state {
   padding: 24px;
   text-align: center;
-  color: var(--text-faint);
+  color: var(--gray);
   font-size: 13px;
   border: 1px dashed var(--border);
   border-radius: var(--radius);
+  background: var(--offwhite);
 }
 
 .activity-row {
@@ -309,33 +420,36 @@ body {
   padding: 16px 18px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: var(--bg-panel);
-  border-left: 4px solid var(--text-faint);
+  background: var(--white);
+  border-left: 3px solid var(--gray);
+  box-shadow: var(--shadow);
 }
 
-.activity-row.checkin { border-left-color: var(--checkin); }
-.activity-row.checkout { border-left-color: var(--checkout); }
+.activity-row.checkin { border-left-color: var(--green); }
+.activity-row.checkout { border-left-color: var(--blue); }
 
 .activity-time {
   font-size: 12px;
-  color: var(--text-faint);
+  font-weight: 500;
+  color: var(--gray);
   font-variant-numeric: tabular-nums;
 }
 
 .activity-main .activity-title {
   font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
   margin-bottom: 4px;
 }
 
-.activity-row.checkin .activity-title { color: var(--checkin); }
-.activity-row.checkout .activity-title { color: var(--checkout); }
+.activity-row.checkin .activity-title { color: var(--green); }
+.activity-row.checkout .activity-title { color: var(--blue); }
 
 .activity-main .activity-message {
   margin: 0;
-  font-size: 13px;
-  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray);
   line-height: 1.4;
 }
 
@@ -346,15 +460,18 @@ body {
 }
 
 .stat .stat-label {
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: var(--text-faint);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--gray);
   margin-bottom: 2px;
+  text-transform: uppercase;
 }
 
 .stat .stat-value {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
+  color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
 
@@ -380,20 +497,20 @@ body {
 }
 
 .privacy-step {
-  background: var(--bg-panel);
+  background: var(--offwhite);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px;
 }
 
 .step-number {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: var(--good-dim);
-  color: var(--good);
-  font-weight: 800;
-  font-size: 13px;
+  background: var(--blue-tint);
+  color: var(--blue);
+  font-weight: 600;
+  font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -401,15 +518,18 @@ body {
 }
 
 .step-title {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--ink);
   margin-bottom: 6px;
+  text-transform: uppercase;
 }
 
 .privacy-step p {
   margin: 0;
-  font-size: 12.5px;
-  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--gray);
   line-height: 1.5;
 }

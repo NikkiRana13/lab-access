@@ -23,8 +23,14 @@ State currentState = IDLE;
 
 // ==================== LAB ====================
 
-int currentCapacity = 14;
+int currentCapacity = 0;
 const int maxCapacity = 20;
+
+// Periodic status heartbeat - lets the Python backend stay in sync with
+// this board's actual capacity even if it wasn't listening for the last
+// CHECK_IN/CHECK_OUT event (e.g. it just (re)connected).
+unsigned long lastStatusSentAt = 0;
+const unsigned long STATUS_INTERVAL_MS = 3000;
 
 String enteredID = "";
 
@@ -246,6 +252,15 @@ void setup() {
 // ==========================================================
 
 void loop() {
+
+  // Send a status heartbeat every few seconds, independent of button
+  // presses, so the Python backend always knows the real capacity.
+  unsigned long now = millis();
+  if (now - lastStatusSentAt >= STATUS_INTERVAL_MS) {
+    lastStatusSentAt = now;
+    Serial.print("STATUS,");
+    Serial.println(currentCapacity);
+  }
 
   int button = readButton();
 
