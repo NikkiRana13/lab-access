@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LAB ACCESS — Privacy-First Campus Security</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">LA</div>
+      <div class="brand-text">
+        <h1>LAB ACCESS</h1>
+        <p>Privacy-First Campus Security</p>
+      </div>
+    </div>
+
+    <div class="status-pills">
+      <div class="pill" id="systemPill">
+        <span class="dot dot-good"></span>
+        <span>SYSTEM ONLINE</span>
+      </div>
+      <div class="pill" id="arduinoPill">
+        <span class="dot" id="arduinoDot"></span>
+        <span id="arduinoText">ARDUINO CHECKING…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <section class="cards-row">
+
+      <!-- ============== OCCUPANCY CARD ============== -->
+      <div class="card occupancy-card">
+        <div class="card-label">CURRENT LAB OCCUPANCY</div>
+        <div class="occupancy-figure">
+          <span id="capacityCurrent">0</span>
+          <span class="slash">/</span>
+          <span id="capacityMax">20</span>
+        </div>
+        <div class="occupancy-percent" id="occupancyPercent">0% OCCUPIED</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- ============== PRIVACY / CAMERA CARD ============== -->
+      <div class="card camera-card" id="cameraCard">
+        <div class="card-label" id="cameraEyebrow">PRIVACY MODE</div>
+        <div class="camera-status" id="cameraStatus">
+          <span class="camera-indicator" id="cameraIndicator"></span>
+          <span id="cameraStatusText">CAMERA INACTIVE</span>
+        </div>
+        <p class="camera-desc" id="cameraDesc">
+          Video monitoring remains disabled until an authenticated entry event occurs.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- ============== DEMO MODE ============== -->
+    <section class="card demo-card">
+      <div class="demo-info">
+        <div class="card-label">DEMO MODE</div>
+        <p>No Arduino handy? Trigger simulated events for student <strong>1234</strong> to drive the dashboard.</p>
+      </div>
+      <div class="demo-buttons">
+        <button id="demoCheckin" class="btn btn-in">SIMULATE CHECK IN</button>
+        <button id="demoCheckout" class="btn btn-out">SIMULATE CHECK OUT</button>
+      </div>
+    </section>
+
+    <!-- ============== LIVE ACTIVITY ============== -->
+    <section class="activity-section">
+      <div class="section-header">
+        <h2>LIVE ACTIVITY</h2>
+        <span class="section-sub">Newest events first</span>
+      </div>
+      <div id="activityList" class="activity-list">
+        <div class="empty-state">No activity yet. Waiting for a student to check in…</div>
+      </div>
+    </section>
+
+    <!-- ============== PRIVACY DESIGN ============== -->
+    <section class="privacy-section">
+      <div class="section-header">
+        <h2>PRIVACY-FIRST MONITORING</h2>
+      </div>
+      <div class="privacy-steps">
+        <div class="privacy-step">
+          <div class="step-number">1</div>
+          <div class="step-title">PRESENCE</div>
+          <p>Anonymous proximity detection wakes the access system.</p>
+        </div>
+        <div class="privacy-step">
+          <div class="step-number">2</div>
+          <div class="step-title">AUTHENTICATION</div>
+          <p>Student voluntarily authenticates at the lab entrance.</p>
+        </div>
+        <div class="privacy-step">
+          <div class="step-number">3</div>
+          <div class="step-title">EVENT-BASED VERIFICATION</div>
+          <p>Camera verification occurs only during an authenticated access event.</p>
+        </div>
+        <div class="privacy-step">
+          <div class="step-number">4</div>
+          <div class="step-title">DERIVED DATA</div>
+          <p>The system stores access events and occupancy information rather than continuous surveillance footage.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
