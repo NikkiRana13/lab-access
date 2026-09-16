@@ -53,18 +53,10 @@ body {
 .brand { display: flex; align-items: center; gap: 14px; }
 
 .brand-mark {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  background: var(--blue);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-family: "TT Norms", "TT Norms Pro", "Poppins", "Inter", sans-serif;
-  letter-spacing: 0.5px;
-  font-size: 14px;
-  color: var(--white);
+  height: 34px;
+  width: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .brand-text h1 {
